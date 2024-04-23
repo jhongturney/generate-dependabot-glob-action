@@ -38998,6 +38998,7 @@ const globOpts = {
   root: process.cwd(),
   mark: true,
   matchBase: true,
+  nomount: true,
   follow: actionOpts['follow-symbolic-links']
 }
 
