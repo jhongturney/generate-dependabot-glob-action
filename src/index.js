@@ -1,6 +1,7 @@
 const core = require('@actions/core')
 const yaml = require('js-yaml')
 const fs = require('fs').promises
+const glob = require('glob')
 const fg = require('fast-glob')
 const path = require('path')
 
@@ -9,6 +10,13 @@ const actionOpts = {
   'follow-symbolic-links': core.getInput('follow-symbolic-links') === 'true',
   // eslint-disable-next-line no-template-curly-in-string
   'file-header': core.getInput('file-header') || '# This file is generated from ${template-file}'
+}
+
+const globOpts = {
+  root: process.cwd(),
+  mark: true,
+  matchBase: true,
+  follow: actionOpts['follow-symbolic-links']
 }
 
 const fastGlobOpts = {
@@ -34,7 +42,7 @@ async function run () {
   for (const entry of template.updates) {
     core.info(`Processing entry ${entry.directory} for ecosystem ${entry['package-ecosystem']}`)
     const baseUpdate = clone(entry)
-    const matchingFiles = await fg(entry.directory, fastGlobOpts)
+    const matchingFiles = await glob(entry.directory, globOpts)
     core.info(`Found ${matchingFiles.length} files matching ${entry.directory}`)
     const matchingDirs = new Set(matchingFiles.map(file => path.dirname(file)))
     core.info(`Found ${matchingDirs.size} directories matching ${entry.directory}`)
