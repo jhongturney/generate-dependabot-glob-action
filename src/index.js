@@ -41,7 +41,7 @@ async function run () {
     const matchingDirs = new Set(matchingFiles.map(file => path.dirname(file)))
     core.info(`Found ${matchingDirs.size} directories matching ${entry.directory}`)
 
-    for (const dir of matchingDirs) {
+    for (const dir of matchingDirs.sort()) {
       core.info(`Creating entry for ${dir} with ecosystem ${entry['package-ecosystem']}`)
       const newUpdate = clone(baseUpdate)
       newUpdate.directory = dir
