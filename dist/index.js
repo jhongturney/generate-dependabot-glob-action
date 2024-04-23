@@ -3679,56 +3679,6 @@ exports.flatten = (...args) => {
 
 /***/ }),
 
-/***/ 4460:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-var isGlob = __nccwpck_require__(4466);
-var pathPosixDirname = (__nccwpck_require__(1017).posix.dirname);
-var isWin32 = (__nccwpck_require__(2037).platform)() === 'win32';
-
-var slash = '/';
-var backslash = /\\/g;
-var enclosure = /[\{\[].*[\}\]]$/;
-var globby = /(^|[^\\])([\{\[]|\([^\)]+$)/;
-var escaped = /\\([\!\*\?\|\[\]\(\)\{\}])/g;
-
-/**
- * @param {string} str
- * @param {Object} opts
- * @param {boolean} [opts.flipBackslashes=true]
- * @returns {string}
- */
-module.exports = function globParent(str, opts) {
-  var options = Object.assign({ flipBackslashes: true }, opts);
-
-  // flip windows path separators
-  if (options.flipBackslashes && isWin32 && str.indexOf(slash) < 0) {
-    str = str.replace(backslash, slash);
-  }
-
-  // special case for strings ending in enclosure containing path separator
-  if (enclosure.test(str)) {
-    str += slash;
-  }
-
-  // preserves full path in case of trailing path separator
-  str += 'a';
-
-  // remove path parts that are globby
-  do {
-    str = pathPosixDirname(str);
-  } while (isGlob(str) || globby.test(str));
-
-  // remove escape chars and return result
-  return str.replace(escaped, '$1');
-};
-
-
-/***/ }),
-
 /***/ 3664:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -4857,7 +4807,7 @@ exports.convertPosixPathToPattern = convertPosixPathToPattern;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.removeDuplicateSlashes = exports.matchAny = exports.convertPatternsToRe = exports.makeRe = exports.getPatternParts = exports.expandBraceExpansion = exports.expandPatternsWithBraceExpansion = exports.isAffectDepthOfReadingPattern = exports.endsWithSlashGlobStar = exports.hasGlobStar = exports.getBaseDirectory = exports.isPatternRelatedToParentDirectory = exports.getPatternsOutsideCurrentDirectory = exports.getPatternsInsideCurrentDirectory = exports.getPositivePatterns = exports.getNegativePatterns = exports.isPositivePattern = exports.isNegativePattern = exports.convertToNegativePattern = exports.convertToPositivePattern = exports.isDynamicPattern = exports.isStaticPattern = void 0;
 const path = __nccwpck_require__(1017);
-const globParent = __nccwpck_require__(4460);
+const globParent = __nccwpck_require__(4655);
 const micromatch = __nccwpck_require__(6228);
 const GLOBSTAR = '**';
 const ESCAPE_SYMBOL = '\\';
@@ -5633,6 +5583,56 @@ const fill = (start, end, step, options = {}) => {
 };
 
 module.exports = fill;
+
+
+/***/ }),
+
+/***/ 4655:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var isGlob = __nccwpck_require__(4466);
+var pathPosixDirname = (__nccwpck_require__(1017).posix.dirname);
+var isWin32 = (__nccwpck_require__(2037).platform)() === 'win32';
+
+var slash = '/';
+var backslash = /\\/g;
+var enclosure = /[\{\[].*[\}\]]$/;
+var globby = /(^|[^\\])([\{\[]|\([^\)]+$)/;
+var escaped = /\\([\!\*\?\|\[\]\(\)\{\}])/g;
+
+/**
+ * @param {string} str
+ * @param {Object} opts
+ * @param {boolean} [opts.flipBackslashes=true]
+ * @returns {string}
+ */
+module.exports = function globParent(str, opts) {
+  var options = Object.assign({ flipBackslashes: true }, opts);
+
+  // flip windows path separators
+  if (options.flipBackslashes && isWin32 && str.indexOf(slash) < 0) {
+    str = str.replace(backslash, slash);
+  }
+
+  // special case for strings ending in enclosure containing path separator
+  if (enclosure.test(str)) {
+    str += slash;
+  }
+
+  // preserves full path in case of trailing path separator
+  str += 'a';
+
+  // remove path parts that are globby
+  do {
+    str = pathPosixDirname(str);
+  } while (isGlob(str) || globby.test(str));
+
+  // remove escape chars and return result
+  return str.replace(escaped, '$1');
+};
 
 
 /***/ }),
