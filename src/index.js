@@ -2,7 +2,6 @@ const core = require('@actions/core')
 const yaml = require('js-yaml')
 const fs = require('fs').promises
 const glob = require('glob')
-const fg = require('fast-glob')
 const path = require('path')
 
 const actionOpts = {
@@ -18,12 +17,6 @@ const globOpts = {
   mark: true,
   matchBase: true,
   follow: actionOpts['follow-symbolic-links']
-}
-
-const fastGlobOpts = {
-  markDirectories: true,
-  baseNameMatch: true,
-  followSymbolicLinks: actionOpts['follow-symbolic-links']
 }
 
 function parseStringTemplate (str, obj) {
