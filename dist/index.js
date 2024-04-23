@@ -46167,6 +46167,7 @@ const actionOpts = {
 }
 
 const globOpts = {
+  root: process.cwd(),
   absolute: false,
   mark: true,
   matchBase: true,
