@@ -46167,6 +46167,7 @@ const actionOpts = {
 }
 
 const globOpts = {
+  root: '/',
   mark: true,
   matchBase: true,
   follow: actionOpts['follow-symbolic-links']
