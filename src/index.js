@@ -16,7 +16,7 @@ const globOpts = {
   root: process.cwd(),
   mark: true,
   matchBase: true,
-  follow: true
+  follow: actionOpts['follow-symbolic-links']
 }
 
 function parseStringTemplate (str, obj) {
