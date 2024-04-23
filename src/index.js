@@ -1,9 +1,7 @@
 const core = require('@actions/core')
 const yaml = require('js-yaml')
 const fs = require('fs').promises
-const util = require('util')
 const fg = require('fast-glob')
-const stream = util.promisify(fg.stream)
 const path = require('path')
 
 const actionOpts = {
@@ -36,7 +34,7 @@ async function run () {
   for (const entry of template.updates) {
     core.info(`Processing entry ${entry.directory} for ecosystem ${entry['package-ecosystem']}`)
     const baseUpdate = clone(entry)
-    const matchingFiles = await stream(entry.directory, fastGlobOpts)
+    const matchingFiles = await fg.stream(entry.directory, fastGlobOpts)
     core.info(`Found ${matchingFiles.length} files matching ${entry.directory}`)
     const matchingDirs = new Set(matchingFiles.map(file => path.dirname(file)))
     core.info(`Found ${matchingDirs.size} directories matching ${entry.directory}`)
