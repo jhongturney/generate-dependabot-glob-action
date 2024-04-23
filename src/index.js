@@ -14,6 +14,7 @@ const actionOpts = {
 }
 
 const globOpts = {
+  cwd: true,
   root: true,
   mark: true,
   matchBase: true,
