@@ -3,43 +3,48 @@
 version: 2
 updates:
   - package-ecosystem: docker
-    directory: /test/docker/container_1
+    directory: >-
+      /home/runner/work/generate-dependabot-glob-action/generate-dependabot-glob-action/test/docker/weird_dockerfile
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
   - package-ecosystem: docker
-    directory: /test/docker/container_2
+    directory: >-
+      /home/runner/work/generate-dependabot-glob-action/generate-dependabot-glob-action/test/docker/container_2
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
   - package-ecosystem: docker
-    directory: /test/docker/weird_dockerfile
+    directory: >-
+      /home/runner/work/generate-dependabot-glob-action/generate-dependabot-glob-action/test/docker/container_1
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
   - package-ecosystem: npm
-    directory: /test/npm/npm_1
+    directory: >-
+      /home/runner/work/generate-dependabot-glob-action/generate-dependabot-glob-action/test/npm/yarn_1
     ignore:
       - dependency-name: '*'
     schedule:
       interval: daily
     open-pull-requests-limit: 0
   - package-ecosystem: npm
-    directory: /test/npm/yarn_1
+    directory: >-
+      /home/runner/work/generate-dependabot-glob-action/generate-dependabot-glob-action/test/npm/npm_1
     ignore:
       - dependency-name: '*'
     schedule:
       interval: daily
     open-pull-requests-limit: 0
   - package-ecosystem: terraform
-    directory: test/terraform/tf_1
+    directory: test/terraform/tf_2
     commit-message:
       prefix: terraform
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
   - package-ecosystem: terraform
-    directory: test/terraform/tf_2
+    directory: test/terraform/tf_1
     commit-message:
       prefix: terraform
     schedule:
@@ -53,10 +58,10 @@ updates:
       interval: weekly
     open-pull-requests-limit: 0
   - package-ecosystem: npm
-    directory: /
+    directory: /home/runner/work/generate-dependabot-glob-action
     schedule:
       interval: daily
   - package-ecosystem: github-actions
-    directory: /
+    directory: /home/runner/work/generate-dependabot-glob-action
     schedule:
       interval: daily
