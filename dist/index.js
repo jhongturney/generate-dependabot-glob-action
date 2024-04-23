@@ -38995,7 +38995,7 @@ const actionOpts = {
 }
 
 const globOpts = {
-  root: process.cwd(),
+  root: true,
   mark: true,
   matchBase: true,
   nomount: true,
