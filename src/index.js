@@ -2,7 +2,8 @@ const core = require('@actions/core')
 const yaml = require('js-yaml')
 const fs = require('fs').promises
 const util = require('util')
-const glob = util.promisify(require('glob'))
+const globModule = require('glob')
+const glob = util.promisify(globModule.glob)
 const path = require('path')
 
 const actionOpts = {
