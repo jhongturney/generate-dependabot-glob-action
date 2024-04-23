@@ -2,8 +2,8 @@ const core = require('@actions/core')
 const yaml = require('js-yaml')
 const fs = require('fs').promises
 const util = require('util')
-const globModule = require('glob')
-const glob = util.promisify(globModule.globSync)
+const fastGlobModule = require('fast-glob')
+const fastGlob = util.promisify(fastGlobModule)
 const path = require('path')
 
 const actionOpts = {
@@ -13,11 +13,10 @@ const actionOpts = {
   'file-header': core.getInput('file-header') || '# This file is generated from ${template-file}'
 }
 
-const globOpts = {
-  root: process.cwd(),
-  mark: true,
-  matchBase: true,
-  follow: actionOpts['follow-symbolic-links']
+const fastGlobOpts = {
+  markDirectories: true,
+  baseNameMatch: true,
+  followSymbolicLinks: actionOpts['follow-symbolic-links']
 }
 
 function parseStringTemplate (str, obj) {
@@ -37,7 +36,7 @@ async function run () {
   for (const entry of template.updates) {
     core.info(`Processing entry ${entry.directory} for ecosystem ${entry['package-ecosystem']}`)
     const baseUpdate = clone(entry)
-    const matchingFiles = await glob(entry.directory, globOpts)
+    const matchingFiles = await fastGlob(entry.directory, fastGlobOpts)
     core.info(`Found ${matchingFiles.length} files matching ${entry.directory}`)
     const matchingDirs = new Set(matchingFiles.map(file => path.dirname(file)))
     core.info(`Found ${matchingDirs.size} directories matching ${entry.directory}`)
