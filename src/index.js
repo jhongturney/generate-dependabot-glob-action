@@ -42,10 +42,9 @@ async function run () {
     core.info(`Found ${matchingDirs.size} directories matching ${entry.directory}`)
 
     for (const dir of matchingDirs) {
-      const modDir = '/' + dir
-      core.info(`Creating entry for ${modDir} with ecosystem ${entry['package-ecosystem']}`)
+      core.info(`Creating entry for ${dir} with ecosystem ${entry['package-ecosystem']}`)
       const newUpdate = clone(baseUpdate)
-      newUpdate.directory = modDir
+      newUpdate.directory = dir
       newUpdates.push(newUpdate)
     }
   }
