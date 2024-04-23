@@ -13,7 +13,7 @@ const actionOpts = {
 }
 
 const globOpts = {
-  cwd: '/',
+  absolute: false,
   mark: true,
   matchBase: true,
   follow: actionOpts['follow-symbolic-links']
