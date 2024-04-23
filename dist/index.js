@@ -38091,8 +38091,8 @@ const core = __nccwpck_require__(2186)
 const yaml = __nccwpck_require__(1917)
 const fs = (__nccwpck_require__(7147).promises)
 const util = __nccwpck_require__(3837)
-const fastGlobModule = __nccwpck_require__(3664)
-const fastGlob = util.promisify(fastGlobModule)
+const fg = __nccwpck_require__(3664)
+const stream = util.promisify(fg.stream)
 const path = __nccwpck_require__(1017)
 
 const actionOpts = {
@@ -38125,7 +38125,7 @@ async function run () {
   for (const entry of template.updates) {
     core.info(`Processing entry ${entry.directory} for ecosystem ${entry['package-ecosystem']}`)
     const baseUpdate = clone(entry)
-    const matchingFiles = await fastGlob(entry.directory, fastGlobOpts)
+    const matchingFiles = await stream(entry.directory, fastGlobOpts)
     core.info(`Found ${matchingFiles.length} files matching ${entry.directory}`)
     const matchingDirs = new Set(matchingFiles.map(file => path.dirname(file)))
     core.info(`Found ${matchingDirs.size} directories matching ${entry.directory}`)
