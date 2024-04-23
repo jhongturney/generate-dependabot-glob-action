@@ -3,7 +3,7 @@ const yaml = require('js-yaml')
 const fs = require('fs').promises
 const util = require('util')
 const globModule = require('glob')
-const glob = util.promisify(globModule.glob)
+const glob = util.promisify(globModule.globSync)
 const path = require('path')
 
 const actionOpts = {

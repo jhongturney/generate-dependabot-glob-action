@@ -38984,7 +38984,7 @@ const yaml = __nccwpck_require__(1917)
 const fs = (__nccwpck_require__(7147).promises)
 const util = __nccwpck_require__(3837)
 const globModule = __nccwpck_require__(8211)
-const glob = util.promisify(globModule.glob)
+const glob = util.promisify(globModule.globSync)
 const path = __nccwpck_require__(1017)
 
 const actionOpts = {
