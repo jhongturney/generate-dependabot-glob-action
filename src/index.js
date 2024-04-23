@@ -43,15 +43,16 @@ async function run () {
   for (const entry of template.updates) {
     core.info(`Processing entry ${entry.directory} for ecosystem ${entry['package-ecosystem']}`)
     const baseUpdate = clone(entry)
-    const matchingFiles = await glob.glob(entry.directory, globOpts)
+    const matchingFiles = await glob.globSync(entry.directory, globOpts)
     core.info(`Found ${matchingFiles.length} files matching ${entry.directory}`)
     const matchingDirs = new Set(matchingFiles.map(file => path.dirname(file)))
     core.info(`Found ${matchingDirs.size} directories matching ${entry.directory}`)
 
     for (const dir of matchingDirs) {
-      core.info(`Creating entry for ${dir} with ecosystem ${entry['package-ecosystem']}`)
+      const modDir = '/' + dir
+      core.info(`Creating entry for ${modDir} with ecosystem ${entry['package-ecosystem']}`)
       const newUpdate = clone(baseUpdate)
-      newUpdate.directory = dir
+      newUpdate.directory = modDir
       newUpdates.push(newUpdate)
     }
   }
